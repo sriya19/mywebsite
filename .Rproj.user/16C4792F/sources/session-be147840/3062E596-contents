@@ -5,7 +5,9 @@ website:
   title: "My Portfolio"
   navbar: 
    left: 
-    - aboutme.qmd
+    - text: "aboutme"
+    - href: aboutme.qmd
+    
 format: 
  html: 
   theme: cosmo 
