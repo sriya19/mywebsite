@@ -14,6 +14,8 @@ website:
       href: workhistory.qmd
     - text: "Skills"
       href: skills.qmd
+    - text: "Projects"
+      href: projects.qmd
 format: 
  html: 
   theme: vapor

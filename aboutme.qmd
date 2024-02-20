@@ -8,7 +8,7 @@ about:
      href: https://www.linkedin.com/in/sriya-pothula-953283184
 ---
 
-![](IMG_7712.JPG){fig-align="center" width="500" height="1000"}
+![](page0.jpg){fig-align="center" width="486"}
 
 Hi 👋, I'm Sriya Pothula and I'm currently pursuing my Master's in Data Analytics Engineering at George Mason University.
 
