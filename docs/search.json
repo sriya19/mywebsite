@@ -1,9 +1,37 @@
 [
   {
+    "objectID": "portfolio.html",
+    "href": "portfolio.html",
+    "title": "My Portfolio",
+    "section": "",
+    "text": "Hello, I’m [Your Name]. Welcome to my portfolio!\n![Me](/Users/sriyapothula/Desktop/stat/mywebsite/IMG_7712.JPG)"
+  },
+  {
+    "objectID": "workhistory.html",
+    "href": "workhistory.html",
+    "title": "My Portfolio",
+    "section": "",
+    "text": "Infosys - SAP S&M Analyst Hyderabad, India • 03/2021 - 12/2023 • Duration: 2 years 10 months\nBharat Heavy Electricals Limited - Summer Intern Hyderabad, India • 06/2019 - 06/2019 • Duration: 1 month"
+  },
+  {
     "objectID": "aboutme.html",
     "href": "aboutme.html",
     "title": "My Portfolio",
     "section": "",
-    "text": "I am Sriya Pothula pursuing my Masters in Data Analytics Engineering in George Mason University."
+    "text": "Hi, I’m Sriya Pothula and I’m currently pursuing my Master’s in Data Analytics Engineering at George Mason University.\nI am a driven SAP S&M Analyst with a strong background in business systems, process optimization, and data analytics. Leveraging SAP Sales and Distribution (S&D) module expertise, adept at analyzing complex sales and marketing data to drive strategic decision-making and improve operational efficiency. Eager to learn new things and work on competitive tasks."
+  },
+  {
+    "objectID": "education.html",
+    "href": "education.html",
+    "title": "My Portfolio",
+    "section": "",
+    "text": "George Mason University Fairfax, VA • Expected in 12/2026 Master’s degree: Data Modeling/Warehousing and Database Administration\nSRKR Engineering College Bhimavaram, India • 01/2020 BTech - Bachelor of Technology: Electrical, Electronics and Communications Engineering"
+  },
+  {
+    "objectID": "skills.html",
+    "href": "skills.html",
+    "title": "My Portfolio",
+    "section": "",
+    "text": "SAP SD\nSAP TM\nC(Programming Language)\nPython\nR Language\nMicrosoft Excel"
   }
 ]

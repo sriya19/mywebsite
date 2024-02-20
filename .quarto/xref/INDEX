@@ -1,5 +1,17 @@
 {
   "aboutme.qmd": {
     "aboutme.html": "83ec8be8"
+  },
+  "education.qmd": {
+    "education.html": "afc63b0f"
+  },
+  "workhistory.qmd": {
+    "workhistory.html": "fa12f370"
+  },
+  "portfolio.qmd": {
+    "portfolio.html": "762bf0a7"
+  },
+  "skills.qmd": {
+    "skills.html": "9fb59ec7"
   }
 }

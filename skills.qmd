@@ -1,0 +1,23 @@
+<div>
+
+---
+editor: visual
+---
+
+</div>
+
+<div>
+
+-   SAP SD
+
+-   SAP TM
+
+-   C(Programming Language)
+
+-   Python
+
+-   R Language
+
+-   Microsoft Excel
+
+</div>

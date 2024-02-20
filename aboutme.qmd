@@ -2,4 +2,6 @@
 editor: visual
 ---
 
-I am Sriya Pothula pursuing my Masters in Data Analytics Engineering in George Mason University.
+Hi, I'm Sriya Pothula and I'm currently pursuing my Master's in Data Analytics Engineering at George Mason University.
+
+I am a driven SAP S&M Analyst with a strong background in business systems, process optimization, and data analytics. Leveraging SAP Sales and Distribution (S&D) module expertise, adept at analyzing complex sales and marketing data to drive strategic decision-making and improve operational efficiency. Eager to learn new things and work on competitive tasks.
