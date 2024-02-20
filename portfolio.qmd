@@ -1,7 +1,0 @@
----
-editor: visual
----
-
-Hello, I'm \[Your Name\]. Welcome to my portfolio!
-
-\![Me\](/Users/sriyapothula/Desktop/stat/mywebsite/IMG_7712.JPG)
