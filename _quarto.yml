@@ -16,6 +16,8 @@ website:
       href: skills.qmd
     - text: "Projects"
       href: projects.qmd
+    - text: "Final Project"
+      href: Final_Project.qmd
 format: 
  html: 
   theme: vapor
