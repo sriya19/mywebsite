@@ -108,7 +108,6 @@ library(randomForest)
 library(caret)
 library(corrplot)
 
-# Histogram of Rings
 ggplot(abalone, aes(x = Rings)) + 
   geom_histogram(binwidth = 1, fill = "blue", color = "black") +
   labs(title = "Distribution of Rings")
@@ -135,7 +134,7 @@ pairs(~Length + Diameter + Height + Whole_weight, data = abalone,
 ```
 
 
-Interpretation:
+**Interpretation:**
 
 The "Pairwise Relationships" plot displays the correlation between several physical measurements of abalones: Length, Diameter, Height, and Whole_weight. Each plot demonstrates a positive correlation among these variables, particularly between Length and Diameter, and Length and Whole_weight, which show strong linear relationships. This indicates that as abalones grow longer, they also tend to increase proportionally in diameter and overall weight. The relationship between Height and the other variables, while still positive, appears weaker and more dispersed, suggesting that height may vary more independently compared to length or diameter. Overall, these relationships are expected in biological organisms, where physical dimensions often scale together, but the varying degrees of correlation may also hint at different growth patterns or environmental adaptations specific to the species.
 
@@ -164,31 +163,29 @@ correlations
 ```
 
 
-Interpretation:
+**Interpretation:**
 
 The variable importance plots from a random forest model reveal key predictors for estimating the age of abalones, measured by the number of rings. In the left plot, which shows percentage increase in mean squared error (%IncMSE), 'Shucked_weight' emerges as the most critical predictor, followed by 'Sex' and 'Shell_weight', indicating that model accuracy heavily relies on these variables. The right plot, displaying increase in node purity (IncNodePurity), also highlights 'Shell_weight' as the top variable, with 'Whole_weight' and 'Shucked_weight' also showing significant influence. These metrics suggest that factors related to the physical composition of abalones, particularly the weights of different body parts, along with the sex, play crucial roles in accurately determining their age, with these variables significantly affecting the model’s predictive accuracy and ability to create homogeneous groups.
 
 **Implementing different models:**
 
-The dataset is split  into training and testing sets, 80-20 respectively. The training control is prepared for 10-fold cross-validation, a technique that improves the reliability of model evaluation by training and testing the models on ten distinct data subsets.
+The dataset is split into training and testing sets, 80-20 respectively. The training control is prepared for 10-fold cross-validation, a technique that improves the reliability of model evaluation by training and testing the models on ten distinct data subsets.
 
 **Random Forest:** A regression model utilizing random forests is trained. Multiple decision trees are used in this ensemble model to reduce overfitting and increase prediction accuracy.
 
 
 ```{r}
-# Train a Random Forest to get variable importance
 set.seed(12)
 model <- randomForest(Rings ~ ., data = abalone, importance = TRUE)
 varImpPlot(model)
 
-#The model predicts the Rings variable based on all other variables in the abalone dataset.
 abalone_no_sex <- abalone[, !names(abalone) %in% c("Sex")]
 index <- createDataPartition(abalone_no_sex$Rings, p = 0.8, list = TRUE)
 train_data <- abalone_no_sex[index$Resample1,]
 test_data <- abalone_no_sex[-index$Resample1,]
 train_control <- trainControl(
-  method = "cv",  # using cross-validation
-  number = 10     # number of folds in cross-validation
+  method = "cv", 
+  number = 10   
 )
 models <- list()
 models$rf <- train(Rings ~ ., data = abalone_no_sex, method = "rf", trControl = train_control)
@@ -244,7 +241,6 @@ cat("RF RMSE:", rmse_rf, "R2:", r2_rf, "\n")
 cat("SVM RMSE:", rmse_svm, "R2:", r2_svm, "\n")
 cat("GBM RMSE:", rmse_gbm, "R2:", r2_gbm, "\n")
 cat("LM RMSE:", rmse_lm, "R2:", r2_lm, "\n")
-
 ```
 
 
@@ -256,11 +252,10 @@ This methodically investigate several parameter choices to get the optimal optio
 
 
 ```{r}
-# Set up training control
 train_control <- trainControl(method = "cv", number = 10, search = "grid")
 
 tune_grid <- expand.grid(
-  mtry = seq(2, ncol(abalone_no_sex) - 1, by = 1), # adjust the range for mtry based on the reduced number of features
+  mtry = seq(2, ncol(abalone_no_sex) - 1, by = 1), 
   splitrule = c("variance"),
   min.node.size = c(5, 10)
 )
@@ -280,14 +275,12 @@ By using PCA, you reduce noise and computational load, potentially improving the
 
 ```{r}
 library(caret)
-install.packages("FactoMineR")
 library(FactoMineR)
 
+#abalone_no_sex =abalone[, !names(abalone) %in% c("Sex")]
 abalone_pca = abalone_no_sex[, !names(abalone) %in% c("Rings")]
-# Assuming abalone_no_sex is your dataset
-data = abalone_pca  # make sure this dataset does not include the response variable 'Rings'
 
-# Scale the data
+data = abalone_pca  
 data_scaled = scale(data)
 
 pca_result = PCA(data_scaled, graph = FALSE)
@@ -299,16 +292,14 @@ data_pca = pca_result$ind$coord[, 1:num_components]
 num_components = which(cumsum(pca_result$eig[,2]) > 85)[1]
 data_pca = pca_result$ind$coord[, 1:num_components]
 
-# Prepare the final dataset for modeling
+
 final_data = data.frame(Rings = abalone_pca$Rings, data_pca)
 
-# Splitting the data into training and testing sets
 set.seed(12)
 index = createDataPartition(final_data$Rings, p = 0.8, list = TRUE)
 train_data_pca = final_data[index$Resample1,]
 test_data_pca = final_data[-index$Resample1,]
 
-# Train models using the PCA-transformed data
 train_control_pca = trainControl(method = "cv", number = 10)
 models_pca = list()
 models_pca$rf = train(Rings ~ ., data = train_data_pca, method = "rf", trControl = train_control_pca)
@@ -339,7 +330,6 @@ cat("RF RMSE:", rmse_rf_pca, "R2:", r2_rf_pca, "\n")
 cat("SVM RMSE:", rmse_svm_pca, "R2:", r2_svm_pca, "\n")
 cat("GBM RMSE:", rmse_gbm_pca, "R2:", r2_gbm_pca, "\n")
 cat("LM RMSE:", rmse_lm_pca, "R2:", r2_lm_pca, "\n")
-
 ```
 
 
@@ -351,18 +341,17 @@ On this changed dataset, Random Forest is clearly the best performer, but Linear
 ```{r}
 library(shiny)
 
-# Define UI
 ui = fluidPage(
   titlePanel("Abalone Age Prediction"),
   sidebarLayout(
     sidebarPanel(
-      numericInput("length", "Length"),
-      numericInput("diameter", "Diameter"),
-      numericInput("height", "Height"),
-      numericInput("whole_weight", "Whole Weight"),
-      numericInput("shucked_weight", "Shucked Weight"),
-      numericInput("viscera_weight", "Viscera Weight"),
-      numericInput("shell_weight", "Shell Weight"),
+      numericInput("length", "Length", value = 0.5),
+      numericInput("diameter", "Diameter", value = 0.4),
+      numericInput("height", "Height", value = 0.1),
+      numericInput("whole_weight", "Whole Weight", value = 0.5),
+      numericInput("shucked_weight", "Shucked Weight", value = 0.2),
+      numericInput("viscera_weight", "Viscera Weight", value = 0.1),
+      numericInput("shell_weight", "Shell Weight", value = 0.15),
       actionButton("predict", "Predict Age")
     ),
     mainPanel(
@@ -371,7 +360,6 @@ ui = fluidPage(
   )
 )
 
-# Define server logic
 server = function(input, output) {
   observeEvent(input$predict, {
     new_data = data.frame(
@@ -384,19 +372,15 @@ server = function(input, output) {
       Shell_weight = input$shell_weight
     )
     
-    # Predict using the model
     predicted_age <- predict(models$rf, new_data)
     
-    # Output the prediction
     output$age_prediction <- renderText({
       paste("Predicted age:", round(predicted_age))
     })
   })
 }
 
-# Run the application
-shinyApp(ui = ui, server = server)
-
+#shinyApp(ui = ui, server = server)
 ```
 
 
@@ -408,43 +392,32 @@ Using the training data as a Logistic Regression model, all other variables are 
 
 
 ```{r}
-library(dplyr)  # for if_else
-library(caret)  # for model training and evaluation
-library(pROC)   # for ROC curve
+library(dplyr)
+library(caret)  
+library(pROC)   
 
-# Convert Rings to a binary mature/immature factor
 abalone$Mature <- if_else(abalone$Rings >= 10, "mature", "immature")
 
-# Ensure 'Sex' is a factor
 abalone$Sex <- as.factor(abalone$Sex)
 
-# Split the data into training and testing
-set.seed(12)  # for reproducibility
+set.seed(12)
 index <- createDataPartition(abalone$Mature, p = 0.8, list = TRUE)
 train_data <- abalone[index[[1]], ]
 test_data <- abalone[-index[[1]], ]
 
-# Convert Mature to binary for logistic regression
 train_data$Mature <- as.integer(train_data$Mature == "mature")
 
-# Logistic Regression Model
 model_log <- glm(Mature ~ . -Rings, data = train_data, family = binomial())
 
-# Predicting and Evaluating the Model
 predictions_log <- predict(model_log, test_data, type = "response")
 predicted_classes_log <- if_else(predictions_log > 0.5, "mature", "immature")
 predicted_classes_log <- factor(predicted_classes_log, levels = c("immature", "mature"))
 test_data$Mature <- factor(test_data$Mature, levels = c("immature", "mature"))
 
-# Confusion Matrix
 confusion_matrix <- confusionMatrix(predicted_classes_log, test_data$Mature)
 
-# ROC Curve
 roc_curve <- roc(test_data$Mature, predictions_log)
 plot(roc_curve, main = "ROC Curve for Logistic Regression")
-
-
-
 ```
 
 
@@ -470,7 +443,7 @@ abalone_i <- abalone %>% filter(Sex == 'I')
 
 library(caret)
 
-set.seed(123)  # for reproducibility
+set.seed(123)  
 trainIndex_m <- createDataPartition(abalone_m$Rings, p = 0.8, list = FALSE)
 train_m <- abalone_m[trainIndex_m, ]
 test_m <- abalone_m[-trainIndex_m, ]
@@ -504,11 +477,9 @@ predictions_i <- predict(model_i, test_i)
 rmse_i <- sqrt(mean((predictions_i - test_i$Rings)^2))
 r2_i <- cor(predictions_i, test_i$Rings)^2
 
-# Print results
 cat("Male RMSE:", rmse_m, "R²:", r2_m, "\n")
 cat("Female RMSE:", rmse_f, "R²:", r2_f, "\n")
 cat("Infant RMSE:", rmse_i, "R²:", r2_i, "\n")
-
 ```
 
 
@@ -522,13 +493,20 @@ Predictor transformations are techniques used to modify the original predictor v
 
 
 ```{r}
-
+library(gridExtra)
+library(tidyverse)
 set.seed(42)
-#Splitting dataset in train and test using 70/30 method
 indexes <- sample(1:nrow(abalone), size = 0.3 * nrow(abalone))
 abalone_train <- abalone[-indexes,]
 abalone_test <- abalone[indexes,]
 par(mfrow = c(3, 3),oma=c(0,0,0,0))
+create_scatter_plot <- function(xvar,yvar,xtitle,ytitle) {
+  ggplot(abalone_train,aes(x=xvar,y=yvar, col=Sex)) + 
+    geom_point() + 
+    geom_jitter() + 
+    xlab(paste(xtitle)) +  
+    ylab(paste(ytitle))
+}
 grid.arrange(
 create_scatter_plot(abalone_train$Length,abalone_train$Rings,"Length","Rings"),
 create_scatter_plot(abalone_train$Diameter,abalone_train$Rings,"Diameter","Rings"),
@@ -539,19 +517,10 @@ create_scatter_plot(abalone_train$Shucked_weight,abalone_train$Rings,"Shucked_we
 create_scatter_plot(abalone_train$Viscera_weight,abalone_train$Rings,"Viscera_weight","Rings")
 )
 
-#Scatter plots 
-create_scatter_plot <- function(xvar,yvar,xtitle,ytitle) {
-  ggplot(abalone_train,aes(x=xvar,y=yvar, col=Sex)) + 
-    geom_point() + 
-    geom_jitter() + 
-    xlab(paste(xtitle)) +  
-    ylab(paste(ytitle))
-}
-
 ```
 
 
-Interpretation:
+**Interpretation:**
 
 The scatter plots provided display various physical measurements against the number of rings in abalones, categorized by sex. These plots suggest potential non-linear relationships and variable scales, indicating that transformations such as logarithmic, polynomial, or standardizing might enhance model accuracy by normalizing distributions and reducing skewness. The evident differences across sexes also hint that interactions between predictors and sex could be significant, potentially necessitating separate models or tailored transformations for each sex group. Implementing such transformations could address the non-linear patterns, manage the influence of outliers, and standardize predictor scales, thereby improving the interpretability and performance of predictive models for estimating abalone age.
 
