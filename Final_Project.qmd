@@ -21,17 +21,17 @@ Sai Padma Sriya Pothula
 
 Adhi Mohan
 
-**Abstract:**
+### **Abstract:**
 
 The "Age Prediction of Abalone" in this project incorporates a new way to find out the Abalone Age. Abalone's physical measurements are used to predict the Abalone Age by Random Forest method. This trained model gives us the age of the Abalone in just a few clicks instead of all the labor put into cutting the shell and counting the rings of Abalone, saving the production costs. The data is visualized for a better understanding.
 
-**Introduction:**
+### **Introduction:**
 
 The abalone dataset encapsulates a collection of morphological measurements of abalone, a marine gastropod mollusk, used to predict its age through the number of rings on its shell. Regression models are used for predicting the biological ages based on physical data. The challenge lies in accurately modeling these predictions, which has significant implications for biological research and marine conservation efforts. Our analysis employs various statistical and machine learning techniques to enhance the precision of age prediction, providing insights into the factors most significantly influencing abalone's aging process.
 
 In this project, we delve into the abalone dataset to develop a robust model that can predict the age of abalone from its physical measurements with high accuracy. Our approach includes a thorough exploratory data analysis to identify patterns and anomalies, preprocessing steps to optimize the dataset for modeling, and the application of multiple regression techniques to compare their effectiveness. The outcome of this project is expected to contribute valuable insights to marine biology by improving the understanding of abalone's growth factors and supporting the development of data-driven conservation policies.
 
-**Dataset:**
+### **Dataset:**
 
 The dataset comes from **a 1994 study "The Population Biology of Abalone (Haliotis species) in Tasmania**. I. Blacklip Abalone (H. rubra) from the North Coast and Islands of Bass Strait".
 
@@ -40,7 +40,7 @@ Abalone, marine snails found in various oceans, are studied not only for their e
 The dependent variable Rings is included in the dataset. It was measured as the number of rings observed after cutting and examining an abalone. Although it does not denote the age of a given abalone directly, it determines it more-or-less perfectly. The age of an abalone equals Rings + 1.5 . Since this relationship holds reliably, Rings will be considered as the dependent variable.
 
 |     |                |     |                |     |               |     |                      |     |                                  |     |
-|-----|----------------|-----|----------------|-----|---------------|-----|----------------------|-----|----------------------------------|-----|
+|-------|-------|-------|-------|-------|-------|-------|-------|-------|-------|-------|
 |     |                |     |                |     |               |     |                      |     |                                  |     |
 |     | **Row Number** |     | **Name**       |     | **Data Type** |     | **Measurement Unit** |     | **Description**                  |     |
 |     |                |     |                |     |               |     |                      |     |                                  |     |
@@ -63,7 +63,7 @@ The dependent variable Rings is included in the dataset. It was measured as the 
 |     | 9\.            |     | Rings          |     | Integer       |     | NA                   |     | +1.5 gives the age in years      |     |
 |     |                |     |                |     |               |     |                      |     |                                  |     |
 
-Methodology:
+### Methodology:
 
 The first step is to Read the data from the csv file, where we need to check for any missing values. We use the 'sum' function to determine if there are any missing values and for the completeness of the data.
 
@@ -75,7 +75,7 @@ sum(complete.cases(abalone))
 
 The above result indicated that the Abalone dataset is a complete dataset.
 
-Predicting the Age of Abalone:
+## Predicting the Age of Abalone:
 
 Let us start with relationship between features ( correlation coefficient matrix) and the relationship between the visual features. The objective of the data visualization step in our research is to conduct a comprehensive exploratory data analysis (EDA) to understand the relationships between various physical measurements of abalones and their sex classification (Female, Male, Infant). The visualization aims to uncover underlying patterns, associations, and distributions within the dataset, which are crucial for informing subsequent data processing and predictive modeling stages.
 
@@ -94,7 +94,7 @@ From the above plots, Variables such as Length, Diameter, and Whole_weight show 
 
 The presence of "\*\*\*" next to a correlation value suggests a very strong statistical significance for that correlation.
 
-#### **Data Visualization and Statistical Analysis**
+## **Data Visualization and Statistical Analysis**
 
 In the initial phase of our study, we employ **`ggplot2`** from the **`tidyverse`** package to create visual representations of the abalone dataset. A histogram details the distribution of the 'Rings' variable, which serves as a proxy for age, while a boxplot is used to compare this distribution across different sex categories, providing insights into central tendencies and variability. Additionally, a pairs plot generated using the base R function **`pairs`** visually assesses the relationships among key continuous variables such as Length, Diameter, Height, and Whole_weight. This visualization is instrumental in identifying correlations and potential multicollinearity among predictors. Furthermore, an Analysis of Variance (ANOVA) tests for significant differences in the mean number of rings across sex groups, helping determine if sex significantly influences abalone age.
 
@@ -110,7 +110,7 @@ ggplot(abalone, aes(x = Rings)) +
 
 ```
 
-#### **Interpretation:**
+### **Interpretation:**
 
 The histogram shows a unimodal distribution with a strong peak around 9 to 10 rings, suggesting that the majority of abalones in the dataset are around 9 to 10 years old. The distribution is slightly right-skewed, indicating a tail of older abalones with more rings. Few abalones have very high ring counts, as seen from the declining frequency past 15 rings, which is typical for biological data where fewer individuals reach older ages. This visualization provides a clear view of the age structure within the abalone population studied, which is crucial for biological and ecological analysis, potentially guiding conservation and harvesting strategies.
 
@@ -127,7 +127,7 @@ pairs(~Length + Diameter + Height + Whole_weight, data = abalone,
 
 ```
 
-**Interpretation:**
+### **Interpretation:**
 
 The "Pairwise Relationships" plot displays the correlation between several physical measurements of abalones: Length, Diameter, Height, and Whole_weight. Each plot demonstrates a positive correlation among these variables, particularly between Length and Diameter, and Length and Whole_weight, which show strong linear relationships. This indicates that as abalones grow longer, they also tend to increase proportionally in diameter and overall weight. The relationship between Height and the other variables, while still positive, appears weaker and more dispersed, suggesting that height may vary more independently compared to length or diameter. Overall, these relationships are expected in biological organisms, where physical dimensions often scale together, but the varying degrees of correlation may also hint at different growth patterns or environmental adaptations specific to the species.
 
@@ -138,11 +138,11 @@ anova_result <- aov(Rings ~ Sex, data = abalone)
 summary(anova_result)
 ```
 
-**Interpretation:**
+### **Interpretation:**
 
 The output from the ANOVA (Analysis of Variance) test indicates a significant effect of the variable 'Sex' on the number of rings in abalones, which are used as a proxy for age. With a very high F-value of 499.3 and an extremely low p-value (less than 2e-16), we reject the null hypothesis that there are no differences in mean number of rings across the sex categories of abalones. This suggests that the average number of rings, and hence the age distribution, differs statistically significantly between the sexes. The degrees of freedom for the 'Sex' group is 2, reflecting the three levels compared (female, male, and infant), and the residuals have 4174 degrees of freedom, indicating the sample size minus the number of groups. This strong statistical evidence supports that sex is a significant factor influencing the age as measured by rings in abalones.
 
-#### **Correlation Analysis and Machine Learning Modeling:**
+### **Correlation Analysis and Machine Learning Modeling:**
 
 Correlation analysis is conducted using the **`cor`** function to establish a correlation matrix for numerical variables, quantifying the degree of linear relationships between them. This analysis aids in feature selection and informs subsequent modeling strategies. The study progresses by employing machine learning techniques where a Random Forest model is trained using the **`randomForest`** package to ascertain variable importance, which guides the refinement of our predictive models. Subsequent models, including Support Vector Machines (SVM), Gradient Boosting Machines (GBM), and Linear Regression, are trained and compared using the **`caret`** package to evaluate their performance based on Root Mean Square Error (RMSE) and R\^2 metrics. These steps encapsulate our approach to harnessing advanced analytics to predict the age of abalones more accurately, enhancing our understanding of this species' growth patterns.
 
@@ -152,11 +152,11 @@ correlations <- cor(abalone[,-1])
 correlations
 ```
 
-**Interpretation:**
+### **Interpretation:**
 
 The variable importance plots from a random forest model reveal key predictors for estimating the age of abalones, measured by the number of rings. In the left plot, which shows percentage increase in mean squared error (%IncMSE), 'Shucked_weight' emerges as the most critical predictor, followed by 'Sex' and 'Shell_weight', indicating that model accuracy heavily relies on these variables. The right plot, displaying increase in node purity (IncNodePurity), also highlights 'Shell_weight' as the top variable, with 'Whole_weight' and 'Shucked_weight' also showing significant influence. These metrics suggest that factors related to the physical composition of abalones, particularly the weights of different body parts, along with the sex, play crucial roles in accurately determining their age, with these variables significantly affecting the model’s predictive accuracy and ability to create homogeneous groups.
 
-**Implementing different models:**
+### **Implementing different models:**
 
 The dataset is split into training and testing sets, 80-20 respectively. The training control is prepared for 10-fold cross-validation, a technique that improves the reliability of model evaluation by training and testing the models on ten distinct data subsets.
 
@@ -194,7 +194,7 @@ models$svm <- train(Rings ~ ., data = abalone_no_sex, method = "svmRadial", trCo
 models$gbm <- train(Rings ~ ., data = abalone_no_sex, method = "gbm", trControl = train_control, verbose = FALSE)
 ```
 
-**Linear Regreesion:** Linear regression model is trained, which is useful as a baseline to assess the performance of more complex models.
+**Linear Regression:** Linear regression model is trained, which is useful as a baseline to assess the performance of more complex models.
 
 ```{r}
 # Linear Regression
@@ -227,7 +227,7 @@ cat("LM RMSE:", rmse_lm, "R2:", r2_lm, "\n")
 
 Random Forest shows the best performance among all models tested, with the lowest RMSE and highest R². This suggests it is most effective at capturing the variance in the data and making accurate predictions about the age of abalones.Based on the measurements, the Random Forest model is the clear winner and the best option for this specific forecasting task. Its low RMSE shows that its predictions are near to real values, and its strong R² value suggests that it can explain a considerable percentage of the variance in the age of abalones.
 
-**Setting up Training control:**
+### **Setting up Training control:**
 
 This methodically investigate several parameter choices to get the optimal option that reduces the root mean square error (RMSE) while estimating the number of rings in abalones. In addition to trying to increase accuracy, the model tuning makes sure the model performs well when applied to previously unknown data by employing a grid search with cross-validation. This methodical technique aids in choosing the best model settings to successfully improve predictive performance.
 
@@ -247,7 +247,7 @@ tuned_model <- train(Rings ~ ., data = abalone_no_sex, method = "ranger",
 
 ```
 
-**Implementing Principal Component Analysis:**
+### **Implementing Principal Component Analysis:**
 
 By using PCA, you reduce noise and computational load, potentially improving the models' performances. Training multiple models allows for a comparative analysis to determine which model best handles the PCA-transformed data in predicting abalone age.
 
@@ -310,11 +310,11 @@ cat("LM RMSE:", rmse_lm_pca, "R2:", r2_lm_pca, "\n")
 
 On this changed dataset, Random Forest is clearly the best performer, but Linear Regression also demonstrates excellent performance. By separating the most important characteristics and minimizing noise and duplication in the data, the application of PCA prior to model training has probably improved performance. In practical settings, these models—Random Forest and Linear Regression in particular—would be very useful for age prediction based on physical attributes, such as in biological research or abalone resource management.
 
-**Implementation of the Random Forest model in Shiny:**
+### **Implementation of the Random Forest model in Shiny:**
 
-#Shiny
+*#Shiny*
 
-**Classification and Prediction of Maturity of Abalone:**
+### **Classification and Prediction of Maturity of Abalone:**
 
 Abalones are classified into Mature and Immature based on the count of their Rings. It involves determining whether the abalone has reached a biological threshold that marks it as mature or immature. This method relies on analyzing the ring count, which correlates with age, as each ring generally signifies one year of growth.\
 \
@@ -349,13 +349,11 @@ roc_curve <- roc(test_data$Mature, predictions_log)
 plot(roc_curve, main = "ROC Curve for Logistic Regression")
 ```
 
-\
-**Interpretation:**
+###  **Interpretation:**
 
 The ROC (Receiver Operating Characteristic) curve shown for the logistic regression model used to predict the maturity of abalones based on their ring counts provides a visual assessment of the model's diagnostic ability. The ROC curve plots the true positive rate (sensitivity) against the false positive rate (1 - specificity) across a range of decision thresholds. A curve that approaches the top left corner of the plot indicates a high level of sensitivity and specificity, demonstrating an excellent predictive performance. In this graph, the curve significantly deviates from the diagonal line, which represents a random guess, suggesting that the logistic regression model has a strong ability to distinguish between mature and immature abalones. The area under the curve (AUC), while not explicitly stated, appears to be substantially higher than 0.5 (the AUC of a random classifier), confirming the effectiveness of the model.
 
-\
-**Predictive Accuracy of Abalone Age between different Sex categories:**
+###  **Predictive Accuracy of Abalone Age between different Sex categories:**
 
 The dataset is divided into 3 distinct subsets - Male, Female and Infant. Here, we are creating DataPartition() and each subset is further split into Training and Testing sets. Following this, Random Forest models are constructed independently for every Sex category, with the Sex. varibale being eliminated as a predictor. The **`glimpse(abalone)`** function call is likely used for a quick overview of the abalone dataset to understand its structure and variables.
 
@@ -409,11 +407,11 @@ cat("Female RMSE:", rmse_f, "R²:", r2_f, "\n")
 cat("Infant RMSE:", rmse_i, "R²:", r2_i, "\n")
 ```
 
-**Interpretation:**
+### **Interpretation:**
 
 The models perform best for infant abalones, indicating that the features selected for prediction are more predictive for this group. In contrast, the models for male and especially female abalones show lower accuracy and fit, suggesting potential complexities or variations in growth patterns not as effectively captured by the model. This analysis highlights the need for potentially refining the models or exploring additional features that could better account for the variations in ring counts, particularly for female abalones.
 
-**Relation between Rings and Predictors:**
+### **Relation between Rings and Predictors:**
 
 Predictor transformations are techniques used to modify the original predictor variables to enhance the performance and interpretability of models. These transformations are crucial for addressing issues such as non-linearity, non-normality, heteroscedasticity (non-constant variance), and to better capture the relationships between predictors and the response variable.
 
@@ -444,11 +442,11 @@ create_scatter_plot(abalone_train$Viscera_weight,abalone_train$Rings,"Viscera_we
 
 ```
 
-**Interpretation:**
+### **Interpretation:**
 
 The scatter plots provided display various physical measurements against the number of rings in abalones, categorized by sex. These plots suggest potential non-linear relationships and variable scales, indicating that transformations such as logarithmic, polynomial, or standardizing might enhance model accuracy by normalizing distributions and reducing skewness. The evident differences across sexes also hint that interactions between predictors and sex could be significant, potentially necessitating separate models or tailored transformations for each sex group. Implementing such transformations could address the non-linear patterns, manage the influence of outliers, and standardize predictor scales, thereby improving the interpretability and performance of predictive models for estimating abalone age.
 
-### **Advantages**
+### **Advantages:**
 
 1.  **Handling Non-Linearity**: Random forests effectively manage non-linear relationships between variables without the need for transformations, making them ideal for complex ecological data like that of abalones.
 
@@ -460,7 +458,7 @@ The scatter plots provided display various physical measurements against the num
 
 5.  **Model Flexibility**: They can be used for both classification and regression tasks, providing flexibility in terms of application.
 
-### **Disadvantages**
+### **Disadvantages:**
 
 1.  **Model Complexity and Interpretability**: Random forests involve numerous decision trees, which can make the model complex and difficult to interpret compared to simpler, linear models.
 
@@ -468,7 +466,7 @@ The scatter plots provided display various physical measurements against the num
 
 3.  **Less Effective for Extrapolation**: They do not perform well in cases where predictions need to be made outside the range of the training data’s features.
 
-### **Limitations**
+### **Limitations:**
 
 1.  **Hyperparameter Tuning**: Determining the optimal number of trees, depth of each tree, and other parameters can be time-consuming and requires a methodical approach to tuning.
 

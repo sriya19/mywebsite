@@ -1,0 +1,12 @@
+name: Age_Prediction
+title: Age_Prediction
+username: abaloneageprediction
+account: abaloneageprediction
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 11949283
+bundleId: 8584818
+url: https://abaloneageprediction.shinyapps.io/Age_Prediction/
+version: 1
+asMultiple: FALSE
+asStatic: FALSE
