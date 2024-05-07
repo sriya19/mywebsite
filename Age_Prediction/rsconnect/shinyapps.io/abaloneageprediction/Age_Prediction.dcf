@@ -5,7 +5,7 @@ account: abaloneageprediction
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 11949283
-bundleId: 8584818
+bundleId: 8585161
 url: https://abaloneageprediction.shinyapps.io/Age_Prediction/
 version: 1
 asMultiple: FALSE

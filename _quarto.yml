@@ -18,6 +18,8 @@ website:
       href: projects.qmd
     - text: "Final Project"
       href: Final_Project.qmd
+    - text: "Shiny Code"
+      href: Shinycode.qmd
 format: 
  html: 
   theme: lux

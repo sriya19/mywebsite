@@ -11,15 +11,15 @@ format:
 
 # Predicting the Age of Abalone based on Data Visualization Analysis
 
-by
+by,
 
 ![](images/clipboard-3215116520.png)
 
-Darshini Balakrishnan
+### Darshini Balakrishnan
 
-Sai Padma Sriya Pothula
+### Sai Padma Sriya Pothula
 
-Adhi Mohan
+### Adhi Mohan
 
 ### **Abstract:**
 
@@ -349,11 +349,11 @@ roc_curve <- roc(test_data$Mature, predictions_log)
 plot(roc_curve, main = "ROC Curve for Logistic Regression")
 ```
 
-###  **Interpretation:**
+### **Interpretation:**
 
 The ROC (Receiver Operating Characteristic) curve shown for the logistic regression model used to predict the maturity of abalones based on their ring counts provides a visual assessment of the model's diagnostic ability. The ROC curve plots the true positive rate (sensitivity) against the false positive rate (1 - specificity) across a range of decision thresholds. A curve that approaches the top left corner of the plot indicates a high level of sensitivity and specificity, demonstrating an excellent predictive performance. In this graph, the curve significantly deviates from the diagonal line, which represents a random guess, suggesting that the logistic regression model has a strong ability to distinguish between mature and immature abalones. The area under the curve (AUC), while not explicitly stated, appears to be substantially higher than 0.5 (the AUC of a random classifier), confirming the effectiveness of the model.
 
-###  **Predictive Accuracy of Abalone Age between different Sex categories:**
+### **Predictive Accuracy of Abalone Age between different Sex categories:**
 
 The dataset is divided into 3 distinct subsets - Male, Female and Infant. Here, we are creating DataPartition() and each subset is further split into Training and Testing sets. Following this, Random Forest models are constructed independently for every Sex category, with the Sex. varibale being eliminated as a predictor. The **`glimpse(abalone)`** function call is likely used for a quick overview of the abalone dataset to understand its structure and variables.
 
@@ -476,7 +476,7 @@ The scatter plots provided display various physical measurements against the num
 
 4.  **No Performance Guarantee**: As with any machine learning model, there is no guarantee that a random forest will perform well on all types of data, and its success heavily depends on the nature of the dataset and how representative the training data is of the broader population of abalones.
 
-**Conclusion:**
+### **Conclusion:**
 
 As a summary to the Research questions in report,
 
@@ -486,7 +486,7 @@ The age of abalone was predicted by comparing various different models such as S
 
 Random Forest models were trained separately for male, female, and infant abalones. The results indicated differences in predictive accuracy.findings suggest significant differences in how well physical measurements can predict age across different sex categories. This could be due to intrinsic differences in growth patterns or the effectiveness of the used features in capturing underlying patterns for each category.Infant Abalones exhibited the best predictive accuracy with an RMSE of 1.765061 and an R² of 0.5488142, suggesting that age prediction is more straightforward or consistent in younger abalones, or the features used are more predictive for this group.
 
-**References:**
+### **References:**
 
 \[1\] *UCI Machine Learning Repository*. (n.d.). https://archive.ics.uci.edu/dataset/1/abalone
 

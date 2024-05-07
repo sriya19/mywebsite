@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>My Portfolio – education</title>
+<title>My Portfolio - Shiny Code</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -85,7 +85,7 @@ ul.task-list li input[type="checkbox"] {
  <span class="menu-text">About me</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="./education.html" rel="" target="" aria-current="page">
+    <a class="nav-link" href="./education.html" rel="" target="">
  <span class="menu-text">Education</span></a>
   </li>  
   <li class="nav-item">
@@ -105,7 +105,7 @@ ul.task-list li input[type="checkbox"] {
  <span class="menu-text">Final Project</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./Shinycode.html" rel="" target="">
+    <a class="nav-link active" href="./Shinycode.html" rel="" target="" aria-current="page">
  <span class="menu-text">Shiny Code</span></a>
   </li>  
 </ul>
@@ -123,18 +123,67 @@ ul.task-list li input[type="checkbox"] {
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Shiny Code</h1>
+</div>
 
 
-<p><strong>George Mason University</strong> Fairfax, VA</p>
-<ul>
-<li><strong>Master’s degree:</strong> Data Modeling/Warehousing and Database Administration</li>
-</ul>
-<p><strong>SRKR Engineering College</strong> Bhimavaram, India</p>
-<ul>
-<li><strong>BTech - Bachelor of Technology:</strong> Electrical, Electronics and Communications Engineering</li>
-</ul>
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<section id="abalone-age-predictor" class="level2">
+<h2 class="anchored" data-anchor-id="abalone-age-predictor">Abalone Age Predictor:</h2>
+<p><img src="images/clipboard-493449237.png" class="img-fluid" width="317"></p>
+<p><img src="images/clipboard-1396275868.png" class="img-fluid" width="319"></p>
+<p>library(shiny)</p>
+<p>ui = fluidPage(</p>
+<p>&nbsp; titlePanel(“Abalone Age Prediction”),</p>
+<p>&nbsp; sidebarLayout(</p>
+<p>&nbsp;&nbsp;&nbsp; sidebarPanel(</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; numericInput(“length”, “Length”, value = 0.5),</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; numericInput(“diameter”, “Diameter”, value = 0.4),</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; numericInput(“height”, “Height”, value = 0.1),</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; numericInput(“whole_weight”, “Whole Weight”, value = 0.5),</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; numericInput(“shucked_weight”, “Shucked Weight”, value = 0.2),</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; numericInput(“viscera_weight”, “Viscera Weight”, value = 0.1),</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; numericInput(“shell_weight”, “Shell Weight”, value = 0.15),</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; actionButton(“predict”, “Predict Age”)</p>
+<p>&nbsp;&nbsp;&nbsp; ),</p>
+<p>&nbsp;&nbsp;&nbsp; mainPanel(</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; textOutput(“age_prediction”)</p>
+<p>&nbsp;&nbsp;&nbsp; )</p>
+<p>&nbsp; )</p>
+<p>)</p>
+<p>server = function(input, output) {</p>
+<p>&nbsp; observeEvent(input$predict, {</p>
+<p>&nbsp;&nbsp;&nbsp; new_data = data.frame(</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Length = input$length,</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Diameter = input$diameter,</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Height = input$height,</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Whole_weight = input$whole_weight,</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Shucked_weight = input$shucked_weight,</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Viscera_weight = input$viscera_weight,</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Shell_weight = input$shell_weight</p>
+<p>&nbsp;&nbsp;&nbsp; )</p>
+<p>&nbsp;&nbsp;&nbsp; predicted_age &lt;- predict(models$rf, new_data)</p>
+<p>&nbsp;&nbsp;&nbsp; output$age_prediction &lt;- renderText({</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; paste(“Predicted age:”, round(predicted_age))</p>
+<p>&nbsp;&nbsp;&nbsp; })</p>
+<p>&nbsp; })</p>
+<p>}</p>
+<p>shinyApp(ui = ui, server = server)</p>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
