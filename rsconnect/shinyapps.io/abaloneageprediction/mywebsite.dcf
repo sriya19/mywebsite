@@ -5,9 +5,9 @@ account: abaloneageprediction
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 11947036
-bundleId: 8583893
+bundleId: 8584639
 url: https://abaloneageprediction.shinyapps.io/mywebsite/
 version: 1
 asMultiple: FALSE
 asStatic: FALSE
-ignoredFiles: _quarto.yml|.RData|A1|A1.png|a2.png|aboutme.qmd|education.qmd|Final_Project.qmd|IMG_7712.JPG|page0.jpg|projects.qmd|skills.qmd|Untitled.Rmd|workhistory.qmd|docs
+ignoredFiles: _quarto.yml|.RData|A1|A1.png|a2.png|aboutme.qmd|education.qmd|images/clipboard-3215116520.png|IMG_7712.JPG|page0.jpg|projects.qmd|skills.qmd|workhistory.qmd

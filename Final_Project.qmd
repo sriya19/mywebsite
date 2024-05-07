@@ -13,6 +13,8 @@ format:
 
 by
 
+![](images/clipboard-3215116520.png)
+
 Darshini Balakrishnan
 
 Sai Padma Sriya Pothula
@@ -38,7 +40,7 @@ Abalone, marine snails found in various oceans, are studied not only for their e
 The dependent variable Rings is included in the dataset. It was measured as the number of rings observed after cutting and examining an abalone. Although it does not denote the age of a given abalone directly, it determines it more-or-less perfectly. The age of an abalone equals Rings + 1.5 . Since this relationship holds reliably, Rings will be considered as the dependent variable.
 
 |     |                |     |                |     |               |     |                      |     |                                  |     |
-|-------|-------|-------|-------|-------|-------|-------|-------|-------|-------|-------|
+|-----|----------------|-----|----------------|-----|---------------|-----|----------------------|-----|----------------------------------|-----|
 |     |                |     |                |     |               |     |                      |     |                                  |     |
 |     | **Row Number** |     | **Name**       |     | **Data Type** |     | **Measurement Unit** |     | **Description**                  |     |
 |     |                |     |                |     |               |     |                      |     |                                  |     |
@@ -136,7 +138,7 @@ anova_result <- aov(Rings ~ Sex, data = abalone)
 summary(anova_result)
 ```
 
-Interpretation:
+**Interpretation:**
 
 The output from the ANOVA (Analysis of Variance) test indicates a significant effect of the variable 'Sex' on the number of rings in abalones, which are used as a proxy for age. With a very high F-value of 499.3 and an extremely low p-value (less than 2e-16), we reject the null hypothesis that there are no differences in mean number of rings across the sex categories of abalones. This suggests that the average number of rings, and hence the age distribution, differs statistically significantly between the sexes. The degrees of freedom for the 'Sex' group is 2, reflecting the three levels compared (female, male, and infant), and the residuals have 4174 degrees of freedom, indicating the sample size minus the number of groups. This strong statistical evidence supports that sex is a significant factor influencing the age as measured by rings in abalones.
 
@@ -261,8 +263,6 @@ data_scaled = scale(data)
 
 pca_result = PCA(data_scaled, graph = FALSE)
 
-plot(pca_result, choice = "eigen")
-
 num_components = which(cumsum(pca_result$eig[,2]) > 85)[1]
 data_pca = pca_result$ind$coord[, 1:num_components]
 num_components = which(cumsum(pca_result$eig[,2]) > 85)[1]
@@ -312,50 +312,7 @@ On this changed dataset, Random Forest is clearly the best performer, but Linear
 
 **Implementation of the Random Forest model in Shiny:**
 
-```{r}
-library(shiny)
-
-ui = fluidPage(
-  titlePanel("Abalone Age Prediction"),
-  sidebarLayout(
-    sidebarPanel(
-      numericInput("length", "Length", value = 0.5),
-      numericInput("diameter", "Diameter", value = 0.4),
-      numericInput("height", "Height", value = 0.1),
-      numericInput("whole_weight", "Whole Weight", value = 0.5),
-      numericInput("shucked_weight", "Shucked Weight", value = 0.2),
-      numericInput("viscera_weight", "Viscera Weight", value = 0.1),
-      numericInput("shell_weight", "Shell Weight", value = 0.15),
-      actionButton("predict", "Predict Age")
-    ),
-    mainPanel(
-      textOutput("age_prediction")
-    )
-  )
-)
-
-server = function(input, output) {
-  observeEvent(input$predict, {
-    new_data = data.frame(
-      Length = input$length,
-      Diameter = input$diameter,
-      Height = input$height,
-      Whole_weight = input$whole_weight,
-      Shucked_weight = input$shucked_weight,
-      Viscera_weight = input$viscera_weight,
-      Shell_weight = input$shell_weight
-    )
-    
-    predicted_age <- predict(models$rf, new_data)
-    
-    output$age_prediction <- renderText({
-      paste("Predicted age:", round(predicted_age))
-    })
-  })
-}
-
-#shinyApp(ui = ui, server = server)
-```
+#Shiny
 
 **Classification and Prediction of Maturity of Abalone:**
 
@@ -452,11 +409,11 @@ cat("Female RMSE:", rmse_f, "R²:", r2_f, "\n")
 cat("Infant RMSE:", rmse_i, "R²:", r2_i, "\n")
 ```
 
-Interpretation:
+**Interpretation:**
 
 The models perform best for infant abalones, indicating that the features selected for prediction are more predictive for this group. In contrast, the models for male and especially female abalones show lower accuracy and fit, suggesting potential complexities or variations in growth patterns not as effectively captured by the model. This analysis highlights the need for potentially refining the models or exploring additional features that could better account for the variations in ring counts, particularly for female abalones.
 
-Relation between Rings and Predictors:
+**Relation between Rings and Predictors:**
 
 Predictor transformations are techniques used to modify the original predictor variables to enhance the performance and interpretability of models. These transformations are crucial for addressing issues such as non-linearity, non-normality, heteroscedasticity (non-constant variance), and to better capture the relationships between predictors and the response variable.
 
